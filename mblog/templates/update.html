@@ -4,50 +4,47 @@
 {% block content %}
 
 <style>
-    .update-container{
-        display: grid;
-        grid-template-columns: 1fr 2fr 1fr;
+    .update-container {
+        display: flex; /* Use flexbox for centering */
+        justify-content: center; /* Center the main content */
+        margin: 40px; /* Add some margin for spacing */
     }
 
+    .profile-container {
+        max-width: 600px; /* Set a maximum width for the profile */
+        width: 100%; /* Allow it to be responsive */
+        padding: 40px; /* Add padding for inner spacing */
+        border-radius: 10px; /* Add rounded corners */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Add a shadow */
+        background-color: white; /* Optional: Add a background color */
+    }
+
+    body {
+        color: black;
+        font-family: 'Roboto', sans-serif;
+        font-size: 0.9em;
+    }
 </style>
 
-
 <div class="update-container">
-
-    <div>
-
-    </div>
-
-    <div>
-        {% if user.is_authenticated%}
-
-        <h1> Update post </h1>
-    
-        </br>
-    
-            {% if user.id == post.author.id%}
-                <div class="form-group"></div>
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{ form.media}}
-                        {{ form.as_p}}
-                        <button class="btn btn-success rounded-pill"> Update </button>
-    
-                </div>
-            
-            {%else%}
-            forbidden
+    <div class="profile-container">
+        {% if user.is_authenticated %}
+            <h1>Update Post</h1>
+            <br>
+            {% if user.id == post.author.id %}
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.media }}
+                    {{ form.as_p }}
+                    <button class="btn btn-success rounded-pill">Update</button>
+                </form>
+            {% else %}
+                <p>Forbidden</p>
             {% endif %}
-    
         {% else %}
-    
-        You're not allowed here...
-    
+            <p>You're not allowed here...</p>
         {% endif %}
-    
-        {% endblock %}
     </div>
-
-
 </div>
 
+{% endblock %}
