@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .resume-container {
+        display: flex; /* Use flexbox for centering */
+        justify-content: center; /* Center the main content */
+        margin: 40px; /* Add some margin for spacing */
+    }
+
+    .profile-container {
+        max-width: 600px; /* Set a maximum width for the profile */
+        width: 100%; /* Allow it to be responsive */
+        padding: 40px; /* Add padding for inner spacing */
+        /*background-color: white; /* Optional: Add a background color */
+        border-radius: 10px; /* Optional: Add rounded corners */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Optional: Add a shadow */
+    }
+
+    body {
+        /*background-color: white;*/
+        color: black;
+        font-family: 'Roboto', sans-serif;
+        font-size: 0.9em;
+    }
+
+    .profile {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    #profile-pic {
+        width: 120px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+
+    h3, h5 {
+        margin: 10px 0;
+        text-align: center; /* Center headings */
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .social-links img {
+        width: 25px;
+        margin: 0 5px;
+    }
+
+    .section {
+        padding: 20px;
+        border-radius: 20px;
+        margin: 20px 0; /* Add some vertical spacing between sections */
+        /*background-color: #f9f9f9; /* Optional: Add background color to sections */
+    }
+</style>
+
+<div class="resume-container">
+    <div class="profile-container">
+        <div class="profile" style="color:brown;">
+            <img id="profile-pic" src="{% static 'images/DocteurGuidzavai.png' %}" alt="Dr. Guidzavai">
+            <h5 style="color:black; text-align: justify;"><strong>Guidzavai K. Albert</strong></h5>
+            <ul style="text-align: justify;">
+                <strong><li>PhD.</li></strong>
+                <strong><li>Enseignant chercheur en Mathématiques </li></strong>
+                <strong><li>Mathématiques Appliquées: Systèmes Dynamiques et Modélisation</li></strong>
+                <strong><li>Faculté des Sciences, Université de Yaoundé I, Cameroun</li></strong>
+            </ul>
+            <div class="social-links">
+                <img src="{% static 'images/X.png' %}" alt="Link X">
+                <img src="{% static 'images/facebook.png' %}" alt="Facebook">
+                <img src="{% static 'images/telegram.png' %}" alt="Telegram">
+                <img src="{% static 'images/gmail.png' %}" alt="Gmail">
+            </div>
+        </div>
+        <hr>
+        
+        <div class="section">
+            <h5 style="color: black; text-align: justify;"><strong>Recherche</strong></h5>
+            <ul>
+                <li>Recherches en mathématiques appliquées : systèmes dynamiques, chaos, bifurcations.</li>
+                <li>Analyse asymptotique d'EDO et EDP...</li>
+            </ul>
+        </div>
+        <hr>
+
+        <div class="section">
+            <h5 style="color: black;text-align: justify;"><strong>Articles Publiés</strong></h5>
+            <ul>
+                <li>
+                    <h5 style="color: blue; text-align: justify;"><strong>Analysis of a mosquito life cycle model</strong></h5>
+                    <li>A. Kouchéré Guidzavaï, H. Abboubakar, I. Damakoa. Revue Africaine de la Recherche en Informatique et Mathématiques Appliquées, INRIA, 2021.</li>
+                    <a href="https://arima.episciences.org/7593/pdf" target="_blank" style="color:blue; text-decoration: none;">[paper]</a>
+                </li>
+                <hr>
+                <li>
+                    <h5 style="color: brown;text-align: justify;"><strong>Mathematical modeling and projections of a vector-borne disease: A case study of the Chikungunya in Chad.</strong></h5>
+                    <li>H. Abboubakar, A. K. Guidzavaï, et al.Chaos, Solitons and Fractals (2021).</li>
+                    <a href="https://www.sciencedirect.com/science/article/pii/S0960077921005518" target="_blank" style="color:brown; text-decoration: none;">[paper]</a>
+                </li>
+                <hr>
+                <li>
+                    <h5 style="color: blueviolet; text-align: justify;"><strong>Fractional dynamics of a two-strain dengue model with co-infections and saturated incidences.</strong></h5>
+                    <li>Abboubakar, H., Guidzavai, A. K., Gouroudja, S. A. B., Richard, Y., & Jan, R. (2024). International Journal of Biomathematics.</li>
+                    <a href="https://www.worldscientific.com/doi/abs/10.1142/S179352452450102X" target="_blank" style="color:blueviolet; text-decoration: none;">[paper]</a>
+                </li>
+                <hr>
+                <li>
+                    <h5 style="color: rgb(75, 57, 11); text-align: justify;"><strong>A Note on Proportionate Mixing Assumption Revisited for a Model with Vertical Transmission</strong></h5>
+                    <li>Tchaptchie, Y. K., Danga, D. E. H., Alex, N., & Albert, G. K. (2015). A Note on Proportionate Mixing Assumption Revisited for a Model with Vertical Transmission. Biomath, 4(1), ID-1504081.</li>
+                    <a href="https://biomath.math.bas.bg/biomath/index.php/biomath/article/view/j.biomath.2015.04.081" target="_blank" style="color:rgb(75, 57, 11); text-decoration: none;">[paper]</a>
+                </li>
+                <li>
+                    <h5 style="color: green; text-align: justify;"><strong>Minimum vaccination coverage inducing
+                        global immunization under vertical transmission assumption</strong></h5>
+                    <li>Yannick, K. T., Elvis, H. D., Alex, N., & Albert, G. K. Minimum vaccination coverage inducing global immunization under vertical transmission assumption.</li>
+                    <a href="https://d1wqtxts1xzle7.cloudfront.net/34764828/Kou-Hou-ngu-gui-2014-libre.pdf?1410947092=&response-content-disposition=inline%3B+filename%3DMinimum_vaccination_coverage_inducing_gl.pdf&Expires=1729530737&Signature=VLjmQz64LaRqsMENwm3pUdo07mvcKG6Yl~ZIsCUSx18v45v3-fPMnJvDIzFgeQtw9TbJXP1PbKS8gDYBOpH616TgbVV~rwE4-j1gxhXtcPAt8k2IGcTPS3FYqSZ28eMpzvPkrcUV85ldffOmTxWRK-qXjHOAagdMqsD62IJfTKX~dVWRQpZelAZwSRgRStA7ClcMt8nvA3qIoJHZGDI92WSEtJcAB5Yczxx05J7q46Ilwf9s5ElE0ipOdiyOzNakvojfhnKyGXBYtHM5mw~pU7mYRHdWNvza-qDJ4QMoCC-O4-LiFnL~m5mUwSyS0n9M3MwWSg8xlk4gkct~JF5c6A__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA" target="_blank" style="color:green; text-decoration: none;">[paper]</a>
+                    <a href="https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=guidzavai+&oq=" target="_blank" style="color:rgb(34, 34, 231); text-decoration: none;">[Google scholar]</a>
+
+                </li>
+                <hr>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h5 style="color:green;text-align: justify;"><strong>Formation</strong></h5>
+            <ul>
+                <li>2021-2022: Doctorat PhD en Mathématiques Appliquées, Université de Maroua.</li>
+                <li>Thèse : Modélisation mathématique et contrôle des maladies à transmission vectorielle (chikungunya).</li>
+                <li>Directeurs : DAMAKOA IREPRAN, Professeur, Université de Ngaoundéré.</li>
+                <li>Soutenance : 21 Mars 2022, Mention très honorable.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

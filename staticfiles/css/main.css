@@ -1,0 +1,70 @@
+h5{
+    color: brown;
+
+}
+
+
+
+#profile-wrapper{
+    text-align: center;
+}
+
+#profile-pic{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+ul{
+    padding: 0;
+    list-style-type: none;
+}
+
+.social-links ul, li{
+    list-style-type: none;
+    display: inline-block;
+}
+
+.social{
+    width: 20px;
+    height: 20px;
+}
+
+.code-style {
+    /*font-family: 'Courier New', Courier, monospace; /* You can change the font if desired */
+    /*background-color: #f8f8f8; /* Optional: a light background for distinction */
+    padding: 2px 4px; /* Optional: some padding for aesthetics */
+    border-radius: 4px; /* Optional: rounded corners */
+}
+
+.social-links {
+    list-style: none; /* Remove bullets */
+    display: flex;
+    justify-content: center; /* Center the items */
+    align-items: center; /* Align items vertically */
+    position: relative; /* Position relative for absolute child positioning */
+    width: 200px; /* Set a width for the container */
+    height: 200px; /* Set a height for the container */
+    border-radius: 50%; /* Make it a circle */
+}
+
+.social-links li {
+    position: absolute; /* Position items absolutely */
+    width: 50px; /* Set icon size */
+    height: 50px; /* Set icon size */
+    /* Adjust these values based on the number of icons */
+}
+
+.social-links li:nth-child(1) { transform: rotate(0deg) translate(80px) rotate(0deg); }
+.social-links li:nth-child(2) { transform: rotate(90deg) translate(80px) rotate(-90deg); }
+.social-links li:nth-child(3) { transform: rotate(180deg) translate(80px) rotate(-180deg); }
+.social-links li:nth-child(4) { transform: rotate(270deg) translate(80px) rotate(-270deg); }
+
+.social {
+    width: 100%; /* Make icons responsive to li size */
+    height: 100%; /* Make icons responsive to li size */
+}
+
+

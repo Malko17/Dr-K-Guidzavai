@@ -1,49 +1,54 @@
 {% extends 'base.html' %}
-{% block title %} create a new blog category {% endblock %}
+{% block title %} Create a New Blog Category {% endblock %}
 
 {% block content %}
 
 {% if user.is_authenticated %}
 
 <style>
-    .add_post-container{
-        display: grid;
-        grid-template-columns: 2fr 3fr 2fr;
+      .add-post-container {
+        display: flex; /* Use flexbox for centering */
+        justify-content: center; /* Center the main content */
+        margin: 80px; /* Add some margin for spacing */
+
+
+    }
+
+    .post-form-container {
+        max-width: 600px; /* Set a maximum width for the form */
+        width: 100%; /* Allow it to be responsive */
+        padding: 40px; /* Add padding for inner spacing */
+        margin: 20 px auto;
+        /*background-color: white; /* Optional: Add a background color */
+        border-radius: 10px; /* Optional: Add rounded corners */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Optional: Add a shadow */
     }
 </style>
 
-<div class="add_post-container">
+<div class="post-form-container">
 
-    <div>
+    <div class="add-post-container">
+        <h1>Add Category</h1>
+        <br/>
 
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <input type="text" class="form-control border-success" name="category" placeholder="Category" required>
+            </div>
+            <br/>
+            <button type="submit" class="btn btn-success rounded-pill">Create</button>
+        </form>
     </div>
 
-    <div>
-        <h1> add category </h1>
-
-        </br>
-
-
-        <div class="form-group"></div>
-            <form method="POST">
-                {% csrf_token %}
-                <div class="mb-3">
-                    
-                    <input type="text" class="form-control border-success" placeholder="Category">
-                </br><br/>
-                <button class="btn btn-success"> Category </button>
-                </div>
-            </form>
-
-        </div>
-
-        {% else %}
-        You're not allowed here
-
-        {% endif %}
-    </div>
+    <div></div> <!-- Empty right column -->
 
 </div>
 
+{% else %}
+    <div class="alert alert-danger" role="alert">
+        You're not allowed here.
+    </div>
+{% endif %}
 
 {% endblock %}

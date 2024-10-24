@@ -3,67 +3,226 @@
 {% block content %}
 
 <style>
-    .home-container{
-        display: grid;
-        grid-template-columns: 1fr 2fr 1fr;
+    .home-container {
+        display: flex; /* Use flexbox for centering */
+        justify-content: center; /* Center the main content */
+        margin: 40px; /* Add some margin for spacing */
     }
+
+    .posts-container {
+        max-width: 600px; /* Set a maximum width for the posts */
+        width: 100%; /* Allow it to be responsive */
+        padding: 40px; /* Add padding for inner spacing */
+        /*background-color: white; /* Optional: Add a background color */
+        border-radius: 10px; /* Optional: Add rounded corners */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Optional: Add a shadow */
+    }
+
+    .post-item {
+        margin-bottom: 30px; /* Space between posts */
+        padding-bottom: 20px; /* Padding at the bottom */
+        border-bottom: 1px solid #ccc; /* Add a border for separation */
+    }
+
+    .post-item img {
+        width: 100%; /* Make the image responsive */
+        max-width: 150px; /* Set a maximum width for the image */
+        height: auto; /* Maintain aspect ratio */
+        border-radius: 10px; /* Optional: Add rounded corners to the image */
+        display: block; /* Ensure the image is a block element */
+        margin: 20px auto; /* Center the image horizontally */
+    }
+
+    .btn {
+        margin-top: 10px; /* Space above buttons */
+    }
+
+    body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    position: fixed; /* Fixed position */
+    top: 80px; /* Distance from the top */
+    right: 20px; /* Distance from the left */
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.toggle-button {
+    padding: 10px 15px; /* Padding for button */
+    background-color: #f1f4f8; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* No border */
+    border-radius: 50px; /* Rounded pill shape */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth background change */
+}
+
+.toggle-button:hover {
+    background-color: #5db6bd; /* Darker shade on hover */
+}
+
+
+.chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: #444;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.hidden {
+    display: none; /* Hide the chat container */
+}
+
+.chat-box {
+    max-height: 600px;
+    overflow-y: auto;
+    padding: 10px;
+    color: white;
+}
+
+.input-container {
+    display: flex;
+    padding: 10px;
+}
+
+.user-input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.send-button {
+    padding: 10px 15px;
+    background-color: #517057;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 </style>
 
-<div class="home-container">
-    <div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+<div class="sidebar">
+    <button id="toggle-chat" class="toggle-button">✨ </button>
+</div>
+
+<div id="chat-container" class="chat-container hidden">
+    <div id="chat-box" class="chat-box"></div>
+    <div class="input-container">
+        <input type="text" id="user-input" placeholder="Ask me something..." class="user-input">
+        <button id="send-button" class="send-button rounded-pill">Send</button>
     </div>
+</div>
 
-    <div>
-        <h1> Posts</h1>
+
+
+<script>
+const toggleChatButton = document.getElementById('toggle-chat');
+const chatContainer = document.getElementById('chat-container');
+const userInput = document.getElementById('user-input');
+const sendButton = document.getElementById('send-button');
+const chatBox = document.getElementById('chat-box');
+
+// Function to toggle chat visibility
+toggleChatButton.addEventListener('click', () => {
+    chatContainer.classList.toggle('hidden');
+});
+
+// Function to send message
+const sendMessage = async () => {
+    const message = userInput.value;
+    if (!message) return;
+
+    // Display user message
+    chatBox.innerHTML += `<div class="user-message">User: ${message}</div>`;
+    userInput.value = '';
+
+    try {
+        const response = await axios.post('https://api.gemini.com/v1/your-endpoint', {
+            message: message
+        }, {
+            headers: {
+                'Authorization': `Bearer ${apiKey}`
+            }
+        });
+
+        // Display AI response
+        chatBox.innerHTML += `<div class="assistant-message">Assistant: ${response.data.reply}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+    } catch (error) {
+        console.error('Error:', error);
+        chatBox.innerHTML += `<div class="assistant-message">Assistant: Sorry, I couldn't process your request.</div>`;
+    }
+};
+
+// Event listener for send button
+sendButton.addEventListener('click', sendMessage);
+
+// Event listener for Enter key
+userInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        sendMessage();
+        event.preventDefault(); // Prevent default action
+    }
+});
+
+
+</script>
+
+
+<div class="home-container">
+    <div class="posts-container">
+        <h1 style="text-align: center;">Articles</h1>
         <hr>
 
         <ul>
-        {% for post in object_list%}
-        </br>
-        <li> 
-            <a href="{% url 'article-detail' post.pk%}">{{post.title}}</a> -- {{post.author}} -- <a href="{% url 'category' post.category%}"> {{post.category}} </a>--{{post.post_date}} 
-            {% if user.is_authenticated %}
-                {% if user.id == post.author.id %}
-                
-                <a href="{% url 'update-post' post.pk%}"> Edit</a> 
-                | 
-                <a href="{% url 'delete-post' post.pk %}"> Delete </a>
+            {% for post in object_list %}
+            <li class="post-item">
+                <a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a> -- {{ post.author }} -- 
+                <a href="{% url 'category' post.category %}">{{ post.category }}</a> -- {{ post.post_date }} 
+                {% if user.is_authenticated %}
+                    {% if user.id == post.author.id %}
+                        <a href="{% url 'update-post' post.pk %}">Edit</a> | 
+                        <a href="{% url 'delete-post' post.pk %}">Delete</a>
+                    {% endif %}
                 {% endif %}
-        </li>
-            {% endif %}
-        </br>
-        <small>{{post.snippets}} </small>
-        
-    
-        </br><br/> </br>
-        <form action="{% url 'like-post' post.pk%}" method="POST">
-            {% csrf_token %}
-        {% if user.is_authenticated %}
-            {% if liked %}
-                <button type="submit", name="post_id", value = "{{ post.id }}", 
-                class="btn btn-danger btn-sm">Unlike</button> 
-                {% else %}
-    
-                <button type="submit", name="post_id", value = "{{ post.id }}", 
-                class="btn btn-primary btn-sm">Like</button> 
-                {% endif %}
-        {% else %}
-        <small> <a href="{% url 'login' %}"> login to like</a>
-            
-        </small>
-        {% endif %}
-      
-            
-            - {{ total_likes }} Likes
-        </form>
-        
-        <hr>
+                <br>
+                <small>{{ post.snippets }}</small>
+                <br><br>
 
-        {% endfor %}
+                {% if post.header_image %}
+                    <img src="{{ post.header_image.url }}" alt="Header Image">
+                {% endif %}
+                
+                <form action="{% url 'like-post' post.pk %}" method="POST">
+                    {% csrf_token %}
+                    {% if user.is_authenticated %}
+                        {% if liked %}
+                            <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-danger btn-sm rounded-pill">Unlike</button> 
+                        {% else %}
+                            <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-secondary btn-sm rounded-pill">Like</button> 
+                        {% endif %}
+                    {% else %}
+                        <small><a href="{% url 'login' %}">Login to like</a></small>
+                    {% endif %}
+                    - {{ total_likes }} likes
+                </form>
+            </li>
+
+            {% endfor %}
         </ul>
     </div>
-
 </div>
 
 {% endblock %}

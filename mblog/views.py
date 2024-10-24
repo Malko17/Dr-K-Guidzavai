@@ -10,8 +10,8 @@ from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 
 
-#ef home(request):
- #   return render(request, 'home.html', {})
+#def home(request):
+#   return render(request, 'home.html', {})
 
 def password_success(request):
     return render(request, 'registration/password_success.html', {})
@@ -38,23 +38,23 @@ def LikeView(request, pk):
         liked = True
     
     return HttpResponseRedirect(reverse('article-detail', args=[str(pk)]))
-
 class HomeView(ListView):
-
-    #q= ListView.GET('q') if ListView.GET.get('q') != None else ''
-    #post = Post.objects.filter(topic__name__contains = q)
-    
     model = Post
     template_name = 'home.html' 
     ordering = ['-post_date']
-    #ordering = ['-id']
-    
- 
+
     def get_context_data(self, *args, **kwargs):
-        cat_menu = Category.objects.all()
         context = super(HomeView, self).get_context_data(*args, **kwargs)
+        cat_menu = Category.objects.all()
+        
+        # Get the search query from the GET parameters
+        search_query = self.request.GET.get('search', '')
+        if search_query:
+            context['object_list'] = context['object_list'].filter(title__icontains=search_query)
+
         context["cat_menu"] = cat_menu
         return context
+
     
 
 def CategoryView(request, cats):

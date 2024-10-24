@@ -16,10 +16,12 @@
     <form method="POST">
         {% csrf_token %}
         <strong> Are you sure you want to delete {{ post.title }}</strong><br/>
-        <button class="btn btn-info"> Delete Post </button>
+        <br><br><br>
+        <button class="btn btn-success rounded-pill"> Delete Post </button>
 </div>
 {% else %}
 You're not allowed here...
 {% endif %} 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 {% endblock %}

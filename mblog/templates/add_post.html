@@ -3,32 +3,39 @@
 
 {% block content %}
 <style>
-    .add_post-container{
-        display: grid;
-        grid-template-columns: 2fr 3fr 2fr;
+    .add_post-container {
+        display: flex; /* Use flexbox for centering */
+        justify-content: center; /* Center the main content */
+        margin: 40px; /* Add some margin for spacing */
+    }
+
+    .post-form-container {
+        max-width: 600px; /* Set a maximum width for the form */
+        width: 100%; /* Allow it to be responsive */
+        padding: 40px; /* Add padding for inner spacing */
+      /*  background-color: white; /* Optional: Add a background color */
+        border-radius: 10px; /* Optional: Add rounded corners */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Optional: Add a shadow */
     }
 </style>
 
 <div class="add_post-container">
 
-    <div>
-
-    </div>
-
-    <div>
+    <div class="post-form-container">
         {% if user.is_authenticated %}
         <h1> add post </h1>
 
         </br>
 
 
+        
         <div class="form-group"></div>
             <form method="POST" enctype = "multipart/form-data">
                 {% csrf_token %}
                 {{ form.media}}
                 {{ form.as_p}}
 
-                <button class="btn btn-success"> Post </button>
+                <button class="btn btn-success rounded-pill"> Post </button>
 
         </div>
 
